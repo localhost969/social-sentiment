@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Sentiment Analysis for X (Twitter)",
+  "version": "0.1.0",
+  "description": "Extracts post text from x.co (Twitter) and shows sentiment scores by calling a local analyze endpoint.",
+  "icons": {
+    "16": "icons/profile.jpg",
+    "48": "icons/profile.jpg",
+    "128": "icons/profile.jpg"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "http://localhost:5000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": ["content_script.js"],
+      "css": ["content_style.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["content_style.css"],
+      "matches": ["https://x.com/*", "https://twitter.com/*"]
+    }
+  ]
+}

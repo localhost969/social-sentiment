@@ -1,0 +1,75 @@
+/* Small styles for sentiment UI */
+
+.ps-sentiment-ui {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: #888; /* fallback gray */
+}
+
+.ps-sentiment-ui[data-label="POSITIVE"], .ps-sentiment-ui[data-label="positive"] { background: #18a558; }
+.ps-sentiment-ui[data-label="NEUTRAL"], .ps-sentiment-ui[data-label="neutral"] { background: #7b7b7b; }
+.ps-sentiment-ui[data-label="NEGATIVE"], .ps-sentiment-ui[data-label="negative"] { background: #d3382f; }
+
+/* Additional class for better positioning close to header */
+.ps-sentiment-ui.ps-inline { transform: translateY(-2px); }
+
+/* Highlight the entire post element with a colored border to show sentiment */
+.ps-sentiment-border {
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+  /* Use outline instead of border to avoid layout shift */
+  outline: 3px solid transparent;
+  outline-offset: -3px; /* draws inside the element box */
+  border-radius: 8px; /* gentle rounding to match tweet cards */
+}
+
+.ps-sentiment-border.ps-sentiment-positive {
+  outline-color: rgba(24, 165, 88, 0.9); /* green */
+  box-shadow: 0 0 0 3px rgba(24, 165, 88, 0.12);
+}
+.ps-sentiment-border.ps-sentiment-neutral {
+  outline-color: rgba(255, 195, 0, 0.95); /* yellow */
+  box-shadow: 0 0 0 3px rgba(255, 195, 0, 0.12);
+}
+.ps-sentiment-border.ps-sentiment-negative {
+  outline-color: rgba(211, 56, 47, 0.95); /* red */
+  box-shadow: 0 0 0 3px rgba(211, 56, 47, 0.12);
+}
+
+/* For very compact tweet cards, reduce outline offset to avoid overflow */
+article.ps-sentiment-border, div[data-testid="tweet"].ps-sentiment-border {
+  display: block;
+}
+
+/* Container to allow our summary to position correctly */
+.ps-sentiment-container { position: relative; }
+
+/* Right-side summary badge with scores */
+.ps-sentiment-summary {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  z-index: 999;
+  min-width: 90px;
+  max-width: 200px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: right;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.6);
+}
+
+.ps-sentiment-summary.ps-sentiment-positive { background: rgba(24,165,88,0.95); }
+.ps-sentiment-summary.ps-sentiment-neutral { background: rgba(255,195,0,0.95); color: #000; }
+.ps-sentiment-summary.ps-sentiment-negative { background: rgba(211,56,47,0.95); }
+
+/* Ensure summary doesn't affect layout and is readable on dark/light themes */
+.ps-sentiment-summary::after { content: ''; display: block; height: 0; }
