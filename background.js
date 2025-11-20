@@ -3,7 +3,7 @@
  * - Calls the local sentiment API and returns the result
  */
 
-const BACKEND_URL = "http://localhost:5000/analyze";
+const BACKEND_URL = "https://ps-2025-backend-production.up.railway.app/analyze";
 
 // Simple in-memory cache to avoid duplicate fetches in short time window
 const cache = new Map(); // key: textHash -> {timestamp, result}
