@@ -1,5 +1,3 @@
-/* Small styles for sentiment UI */
-
 .ps-sentiment-ui {
   display: inline-block;
   margin-left: 8px;
@@ -8,47 +6,41 @@
   font-size: 12px;
   font-weight: 700;
   color: #fff;
-  background: #888; /* fallback gray */
+  background: #888; 
 }
 
 .ps-sentiment-ui[data-label="POSITIVE"], .ps-sentiment-ui[data-label="positive"] { background: #18a558; }
 .ps-sentiment-ui[data-label="NEUTRAL"], .ps-sentiment-ui[data-label="neutral"] { background: #7b7b7b; }
 .ps-sentiment-ui[data-label="NEGATIVE"], .ps-sentiment-ui[data-label="negative"] { background: #d3382f; }
 
-/* Additional class for better positioning close to header */
 .ps-sentiment-ui.ps-inline { transform: translateY(-2px); }
 
-/* Highlight the entire post element with a colored border to show sentiment */
 .ps-sentiment-border {
   transition: box-shadow 180ms ease, border-color 180ms ease;
-  /* Use outline instead of border to avoid layout shift */
   outline: 3px solid transparent;
-  outline-offset: -3px; /* draws inside the element box */
-  border-radius: 8px; /* gentle rounding to match tweet cards */
+  outline-offset: -3px; 
+  border-radius: 8px; 
 }
 
 .ps-sentiment-border.ps-sentiment-positive {
-  outline-color: rgba(24, 165, 88, 0.9); /* green */
+  outline-color: rgba(24, 165, 88, 0.9); 
   box-shadow: 0 0 0 3px rgba(24, 165, 88, 0.12);
 }
 .ps-sentiment-border.ps-sentiment-neutral {
-  outline-color: rgba(255, 195, 0, 0.95); /* yellow */
+  outline-color: rgba(255, 195, 0, 0.95);
   box-shadow: 0 0 0 3px rgba(255, 195, 0, 0.12);
 }
 .ps-sentiment-border.ps-sentiment-negative {
-  outline-color: rgba(211, 56, 47, 0.95); /* red */
+  outline-color: rgba(211, 56, 47, 0.95); 
   box-shadow: 0 0 0 3px rgba(211, 56, 47, 0.12);
 }
 
-/* For very compact tweet cards, reduce outline offset to avoid overflow */
 article.ps-sentiment-border, div[data-testid="tweet"].ps-sentiment-border {
   display: block;
 }
 
-/* Container to allow our summary to position correctly */
 .ps-sentiment-container { position: relative; }
 
-/* Right-side summary badge with scores */
 .ps-sentiment-summary {
   position: absolute;
   right: 10px;
@@ -71,5 +63,4 @@ article.ps-sentiment-border, div[data-testid="tweet"].ps-sentiment-border {
 .ps-sentiment-summary.ps-sentiment-neutral { background: rgba(255,195,0,0.95); color: #000; }
 .ps-sentiment-summary.ps-sentiment-negative { background: rgba(211,56,47,0.95); }
 
-/* Ensure summary doesn't affect layout and is readable on dark/light themes */
 .ps-sentiment-summary::after { content: ''; display: block; height: 0; }

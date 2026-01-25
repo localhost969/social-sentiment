@@ -1,35 +1,31 @@
-/* Background service worker (Manifest V3 service worker)
+/* ### Background service worker
  * - Receives messages from content scripts
  * - Calls the local sentiment API and returns the result
  */
 
 const BACKEND_URL = "https://ps-2025-backend-production.up.railway.app/analyze";
 
-// Simple in-memory cache to avoid duplicate fetches in short time window
-const cache = new Map(); // key: textHash -> {timestamp, result}
-const CACHE_TTL_MS = 1000 * 60 * 2; // 2 minutes
+const cache = new Map(); 
+const CACHE_TTL_MS = 1000 * 60 * 2;
 
-/* listens to messages from content scripts */
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (!message || message.type !== 'analyze') return; // ignore
+  if (!message || message.type !== 'analyze') return; 
   const { text, postId } = message;
   if (!text) {
     sendResponse({ error: 'No text provided' });
     return;
   }
 
-  // create simple cache key (could be improved)
   const key = `${postId || ''}:${text.slice(0, 200)}`;
   const now = Date.now();
   if (cache.has(key)) {
     const cached = cache.get(key);
     if (now - cached.ts < CACHE_TTL_MS) {
       sendResponse({ result: cached.result, cached: true });
-      return; // return cached result
+      return;
     }
   }
 
-  // Fetch the API and return the JSON
   fetch(BACKEND_URL, {
     method: 'POST',
     headers: {
@@ -53,6 +49,5 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse({ error: String(err) });
     });
 
-  // Indicate we'll send an async response
   return true;
 });
